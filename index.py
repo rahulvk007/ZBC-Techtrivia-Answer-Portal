@@ -16,11 +16,10 @@ def submit():
     if 'email' in session:
         data = request.form
         answer = data["answer"]
-        print(answer)
         collection = db["answers"]
         a = collection.find_one({"answers":answer})
         if a:
-            collection.update_one()
+            user_collection.update_one({"email":session['email']}, {"$set": { "answer_status": True, "score":100}})
             return "Your Answer is Correct"
         else:
             return render_template("index.html", answer_wrong = True)
