@@ -9,7 +9,7 @@
                     <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#">Menu</a>
                         <div class="dropdown-menu"><a class="dropdown-item" href="#">First Item</a><a class="dropdown-item" href="#">Second Item</a><a class="dropdown-item" href="#">Third Item</a></div>
                     </li>
-                </ul><a href="./login"><button class="btn btn-primary" type="button">Login</button></a><span class="navbar-text actions"> </span>
+                </ul><a href="./logout"><button class="btn btn-primary" type="button">Logout</button></a><span class="navbar-text actions"> </span>
             </div>
         </div>
     </nav>
@@ -17,9 +17,13 @@
         <div class="container">
             <div class="intro">
                 <h2 class="text-center">Tech Trivia Answer Portal</h2>
+                {% if answer_wrong %}
+                <p class="text-center">Your Answer was Wrong. Try again</p>
+                {% else %}
                 <p class="text-center">Enter the answer below and click submit to confirm your submission.</p>
+                {% endif %}
             </div>
-            <form class="d-flex justify-content-center flex-wrap" method="post">
+            <form class="d-flex justify-content-center flex-wrap" method="post" action = "/submit-answer">
                 <div class="mb-3"><input class="form-control" type="text" name="answer" placeholder="Your Answer" /></div>
                 <div class="mb-3"><button class="btn btn-primary" type="submit">Submit</button></div>
             </form>
