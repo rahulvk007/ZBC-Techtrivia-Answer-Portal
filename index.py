@@ -25,7 +25,7 @@ def submit():
             datetime_NY = datetime.now(tz_NY)
             t = datetime_NY.strftime("%H:%M:%S")
             user_collection.update_one({"email":session['email']}, {"$set": { "answer_status": True, "score":100, "time": t}})
-            return "Your Answer is Correct"
+            return render_template("correct.html")
         else:
             return render_template("index.html", answer_wrong = True)
     else:
