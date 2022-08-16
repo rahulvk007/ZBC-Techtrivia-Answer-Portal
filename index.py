@@ -2,6 +2,8 @@ from http.client import HTTPResponse
 import re
 from flask import Flask, render_template, request, redirect, send_from_directory, url_for, make_response, session
 from pymongo import MongoClient
+from datetime import datetime
+import pytz
 
 cluster = MongoClient(
     "mongodb+srv://rahulvk:rvk4551@cluster0.c8dkc.mongodb.net/?retryWrites=true&w=majority")
@@ -19,7 +21,10 @@ def submit():
         collection = db["answers"]
         a = collection.find_one({"answers":answer})
         if a:
-            user_collection.update_one({"email":session['email']}, {"$set": { "answer_status": True, "score":100}})
+            tz_NY = pytz.timezone('Asia/Kolkata') 
+            datetime_NY = datetime.now(tz_NY)
+            t = datetime_NY.strftime("%H:%M:%S")
+            user_collection.update_one({"email":session['email']}, {"$set": { "answer_status": True, "score":100, "time": t}})
             return "Your Answer is Correct"
         else:
             return render_template("index.html", answer_wrong = True)
